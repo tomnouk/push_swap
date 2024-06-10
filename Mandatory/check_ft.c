@@ -53,10 +53,14 @@ int	is_sorted(t_stack *s)
 void	exit_error(t_stack *s1, t_stack *s2)
 {
 	write(2, "Error\n", 6);
-	if (s1)
+	if (s1) {
 		free(s1->buffer);
-	if (s2)
+		free(s1);
+	}
+	if (s2) {
 		free(s2->buffer);
+		free(s2);
+	}
 	exit(EXIT_FAILURE);
 }
 
