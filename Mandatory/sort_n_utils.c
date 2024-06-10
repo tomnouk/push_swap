@@ -29,22 +29,25 @@ int	index_n(t_stack *s, int value)
 int	is_digit(char *str)
 {
 	int	i;
-	int	sign;
+	int sing;
 
 	i = 0;
-	sign = 0;
+	sing = 0;
+	while(str[i] == ' ' || str[i] == '\t')
+		i++;
+	if (str[i] == '+' || str[i] == '-') {
+		i++;
+		sing = 1;
+	}
 	while (str[i])
 	{
-		if (str[i] == '+' || str[i] == '-')
-		{
-			if (sign == 1)
-				return (0);
-			sign = 1;
-		}
-		else if (!(str[i] >= '0' && str[i] <= '9'))
+		if (!(str[i] >= '0' && str[i] <= '9'))
 			return (0);
 		i++;
+		sing = 0;
 	}
+	if (sing)
+		return (0);
 	return (1);
 }
 

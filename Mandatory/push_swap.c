@@ -88,7 +88,7 @@ int main(int argc, char **argv)
             if (index_n(s.a, ft_atoi2(argv[argc - 1]))
                 || !is_digit(argv[argc - 1]) || !is_int(ft_atoi2(argv[argc - 1])))
             {
-				//free_if(&argv, s.a);
+				free_if(&argv, s.a);
 				exit_error(s.a, NULL);
             }
             s.a->head = (s.a->head - 1 + s.a->size) % s.a->size;
