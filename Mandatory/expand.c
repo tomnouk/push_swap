@@ -12,25 +12,25 @@
 
 #include "push_swap.h"
 
-void	expand_argv(t_stack *a, char ***argv, int *argc)
+void expand_argv(t_stack *a, char ***argv, int *argc)
 {
-	if (*argc == 2)
-	{
-		*argv = ft_split((*argv)[1], ' ');
-		if (!*argv)
-			exit_error(NULL, NULL);
-		*argc = 0;
-		while ((*argv)[*argc])
-			(*argc)++;
-		a->expanded = 1;
-	}
-	else
-	{
-		*argv = &((*argv)[1]);
-		a->expanded = 0;
-		(*argc)--;
-	}
-	init(a, *argc + 1, 'a', NULL);  
+    if (*argc == 2)
+    {
+        *argv = ft_split((*argv)[1], ' ');
+        if (!*argv)
+            exit_error(NULL, NULL);
+        *argc = 0;
+        while ((*argv)[*argc])
+            (*argc)++;
+        a->expanded = 1;
+    }
+    else
+    {
+        *argv = &((*argv)[1]);
+        a->expanded = 0;
+        (*argc)--;
+    }
+    init(a, *argc + 1, 'a', NULL);
 }
 
 void	check_double(t_stack *s)

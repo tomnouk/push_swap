@@ -13,8 +13,7 @@
 #ifndef CHECKER_BONUS_H
 # define CHECKER_BONUS_H
 
-# include "../my_lib/Libft/libft.h"
-# include "../my_lib/get_next_line/get_next_line_bonus.h"
+# include "..//libft/libft.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>

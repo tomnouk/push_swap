@@ -43,6 +43,17 @@ void	init(t_stack *s, int size, char name, t_stack *s_tofree)
 	s->name = name;
 }
 
+void free_stack(t_stack *s)
+{
+    t_stack *tmp;
+    while (s)
+    {
+        tmp = s;
+        s = s->next;
+        free(tmp);
+    }
+}
+
 t_data	push_swap(char **argv)
 {
 	t_data	s;
@@ -61,38 +72,46 @@ t_data	push_swap(char **argv)
 	return (s);
 }
 
-int	main(int argc, char **argv)
-{
-	t_data	s;
 
-	if (argc <= 6)
-	{
-		s.a = malloc(sizeof(t_stack));
-		if (!s.a)
-			exit_error(NULL, NULL);
-		s.b = malloc(sizeof(t_stack));
-		if (!s.b)
-			exit_error(s.a, NULL);
-		expand_argv(s.a, &argv, &argc);
-		while (argc > 0)
-		{
-			if (index_n(s.a, ft_atoi2(argv[argc - 1]))
-				|| !is_digit(argv[argc - 1]) || !is_int(ft_atoi2(argv[argc - 1])))
-			{
-				free_if(&argv, s.a);
-				exit_error(s.a, NULL);
-			}
-			s.a->head = (s.a->head - 1 + s.a->size) % s.a->size;
-			s.a->buffer[s.a->head] = ft_atoi2(argv[argc-- - 1]);
-		}
-		free_if(&argv, s.a);
-		if (s.a->size - 1 <= 3 && !is_sorted_spec(s.a, 0))
-			sort_3(s.a, NULL);
-		else if (s.a->size - 1 <= 5 && !is_sorted_spec(s.a, 0))
-			sort_5(s.a);
-		free(s.a->buffer);
-	}
-	else if (argc > 6)
-		push_swap(argv + 1);
-	return (0);
+int main(int argc, char **argv)
+{
+    t_data s;
+
+    if (argc <= 6)
+    {
+        s.a = malloc(sizeof(t_stack));
+        if (!s.a)
+            exit_error(NULL, NULL);
+        s.b = malloc(sizeof(t_stack));
+        if (!s.b)
+            exit_error(s.a, NULL);
+        expand_argv(s.a, &argv, &argc);
+        while (argc > 0)
+        {
+            if (index_n(s.a, ft_atoi2(argv[argc - 1]))
+                || !is_digit(argv[argc - 1]) || !is_int(ft_atoi2(argv[argc - 1])))
+            {
+                free_if(&argv, s.a);
+                exit_error(s.a, NULL);
+            }
+            s.a->head = (s.a->head - 1 + s.a->size) % s.a->size;
+            s.a->buffer[s.a->head] = ft_atoi2(argv[argc-- - 1]);
+        }
+        free_if(&argv, s.a);
+        if (s.a->size - 1 <= 3 && !is_sorted_spec(s.a, 0))
+            sort_3(s.a, NULL);
+        else if (s.a->size - 1 <= 5 && !is_sorted_spec(s.a, 0))
+            sort_5(s.a);
+        free(s.a->buffer);
+        free(s.a);
+        if (s.b)
+            free(s.b);
+    }
+    else if (argc > 6)
+    {
+        s = push_swap(argv + 1);
+        free_stack(s.a);
+        free_stack(s.b);
+    }
+    return (0);
 }

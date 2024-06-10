@@ -27,6 +27,7 @@ SRCS = ft_strlen.c \
 		ft_gnl.c \
 		ft_split.c \
 		ft_atoi.c \
+		ft_strcmp.c \
 
 NAME = libft.a
 

@@ -58,7 +58,7 @@ static void	expand_argv(t_stack *a, char ***argv, int *argc)
 {
 	if (*argc == 2)
 	{
-		*argv = ft_split((*argv)[1]);
+		*argv = ft_split((*argv)[1], ' ');
 		if (!*argv)
 			exit_error(NULL);
 		*argc = 0;
