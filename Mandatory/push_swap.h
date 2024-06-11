@@ -101,13 +101,14 @@ void		set_groups(t_stack *s, int nb_of_args);
 void		lstadd_back(t_stack **lst, t_stack *new);
 void		expand_argv(t_stack *a, char ***argv, int *argc);
 void		free_if(char ***argv, t_stack *a);
+void		free_matrice(char **mat);
 
 t_way		test_way(t_data *s, unsigned char direction);
 t_way		find_way(t_data *s);
 
 t_stack		*get_max(t_stack *s);
 t_stack		*get_min(t_stack *s);
-t_stack		*parse_args(char **argv, int *nb);
+t_stack		*parse_args(char **argv, int *nb, int argc);
 t_stack		*lstlast(t_stack *lst);
 t_stack		*lst_before_last(t_stack *lst);
 

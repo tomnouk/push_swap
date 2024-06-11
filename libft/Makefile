@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+         #
+#    By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/14 12:27:09 by anomourn          #+#    #+#              #
-#    Updated: 2024/03/14 14:51:25 by anomourn         ###   ########.fr        #
+#    Updated: 2024/06/11 20:40:55 by anoukmourna      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS = ft_strlen.c \
 		ft_split.c \
 		ft_atoi.c \
 		ft_strcmp.c \
+		ft_strnstr.c \
 
 NAME = libft.a
 

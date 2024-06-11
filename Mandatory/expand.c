@@ -6,7 +6,7 @@
 /*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:28:47 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/06/11 19:38:22 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/06/11 20:29:12 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	expand_argv(t_stack *a, char ***argv, int *argc)
 	init(a, *argc + 1, 'a', NULL);
 }
 
-void	check_double(t_stack *s)
+int	check_double(t_stack *s)
 {
 	t_stack	*tmp;
 
@@ -43,11 +43,12 @@ void	check_double(t_stack *s)
 		while (tmp)
 		{
 			if (tmp->nbr == s->nbr)
-				exit_error(NULL, NULL);
+				return (0);
 			tmp = tmp->next;
 		}
 		s = s->next;
 	}
+	return (1);
 }
 
 int	ft_isdigit(int c)
@@ -57,21 +58,23 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-void check_digital(t_stack *s)
+int check_digital(char *s)
 {
-	t_stack	*tmp;
+	int i;
 
-	while (s)
+	i = 0;
+	while (s && s[i])
 	{
-		tmp = s->next;
-		while (tmp)
+		if (s[i] == '-' || s[i] == '+')
 		{
-			if (!ft_isdigit(tmp->nbr))
-				exit_error(NULL, NULL);
-			tmp = tmp->next;
+			if (s[i + 1] && !ft_isdigit(s[i + 1]))
+				return (0);
 		}
-		s = s->next;
+		else if (!ft_isdigit(s[i]))
+			return (0);
+		i++;
 	}
+	return (1);
 }
 
 t_stack	*parse_args3(int nb)
@@ -99,25 +102,31 @@ t_stack	*parse_args2(char **argv, int *nb)
 	return (s);
 }
 
-t_stack	*parse_args(char **argv, int *nb)
+t_stack	*parse_args(char **argv, int *nb, int argc)
 {
 	t_stack	*s;
 	t_stack	*next;
-	//char	**split;
 
-	printf("parse_args: argv[%s]\n", *argv);
+	s = NULL;
 	if (!*argv)
 		return (NULL);
 	if (!argv[0][0])
 		exit_error(NULL, NULL);
-	//split = ft_split(*argv, ' ');
+	if (check_digital(*argv) == 0)
+	{
+		if (argc == 2)
+			free_matrice(argv);
+		exit_error(s, NULL);
+	}
 	s = parse_args3(ft_atoi(*argv));
-	//free(split);
+	if (check_double(s) == 0)
+	{
+		if (argc == 2)
+			free_matrice(argv);
+		exit_error(s, NULL);
+	}
+	*nb += 1;
 	next = lstlast(s);
-	next->next = parse_args(argv + 1, nb);
-	printf("parse_args: n[%d]\n", s->nbr);
-	check_double(s);
-	printf("check_double\n");
-	check_digital(s);
+	next->next = parse_args(argv + 1, nb, argc);
 	return (s);
 }

@@ -23,21 +23,17 @@ void	init(t_stack *s, int size, char name, t_stack *s_tofree)
 	s->name = name;
 }
 
-t_data	push_swap(char **argv)
+t_data	*push_swap(char **argv, t_data *s, int argc)
 {
-	t_data	s;
-
-	s.size_a = 0;
-	s.size_b = 0;
-	s.a = parse_args(argv, &s.size_a);
-	s.b = NULL;
-	set_groups(s.a, s.size_a);
-	if (is_sorted(s.a))
+	s->a = parse_args(argv, &s->size_a, argc);
+	s->b = NULL;
+	set_groups(s->a, s->size_a);
+	if (is_sorted(s->a))
 		return (s);
-	else if (s.size_a <= 250)
-		sort_moins_250(&s);
+	else if (s->size_a <= 250)
+		sort_moins_250(s);
 	else
-		sort_plus_250(&s);
+		sort_plus_250(s);
 	return (s);
 }
 
@@ -73,6 +69,19 @@ static void	sort_and_free(t_data *s)
 	free(s->a);
 }
 
+void free_matrice(char **mat)
+{
+	int i;
+
+	i = 0;
+	while (mat[i])
+	{
+		free(mat[i]);
+		i++;
+	}
+	free(mat);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	s;
@@ -81,7 +90,8 @@ int	main(int argc, char **argv)
 
 	dim = 1;
 	i = 0;
-	while (argv[1][i])
+	s = (t_data){0};
+	while (argv[1] && argv[1][i])
 	{
 		if (argv[1][i++] == ' ')
 			dim++;
@@ -93,7 +103,21 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	//write(1, "coucou\n", 7);
-	s = push_swap(argv + 1);
+	else if (argc == 2 && dim > 5)
+	{
+		if (!argv[1] || argv[1][0] == ' ' || argv[1][ft_strlen(argv[1]) - 1] == ' ' || ft_strnstr(argv[1], "  ", ft_strlen(argv[1])))
+		{
+			write(1, "Error\n", 6);
+			return (0);
+		}
+		char **split = ft_split(argv[1], ' ');
+		push_swap(split, &s, 2);
+		free_stack(s.a);
+		free_matrice(split);
+		return (0);
+	}
+	else
+		push_swap(argv + 1, &s, argc);
 	free_stack(s.a);
 	return (0);
 }
