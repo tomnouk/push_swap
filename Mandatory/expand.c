@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:28:47 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/06/11 19:04:21 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:38:22 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	check_double(t_stack *s)
 int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
-		return (1);
-	else if (c == '-' || c == '+')
 		return (1);
 	return (0);
 }
@@ -105,18 +103,21 @@ t_stack	*parse_args(char **argv, int *nb)
 {
 	t_stack	*s;
 	t_stack	*next;
-	char	**split;
+	//char	**split;
 
+	printf("parse_args: argv[%s]\n", *argv);
 	if (!*argv)
 		return (NULL);
 	if (!argv[0][0])
 		exit_error(NULL, NULL);
-	split = ft_split(*argv, ' ');
-	s = parse_args2(split, nb);
-	free(split);
+	//split = ft_split(*argv, ' ');
+	s = parse_args3(ft_atoi(*argv));
+	//free(split);
 	next = lstlast(s);
 	next->next = parse_args(argv + 1, nb);
+	printf("parse_args: n[%d]\n", s->nbr);
 	check_double(s);
+	printf("check_double\n");
 	check_digital(s);
 	return (s);
 }

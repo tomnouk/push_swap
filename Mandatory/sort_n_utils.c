@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_n_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 21:42:11 by anomourn          #+#    #+#             */
-/*   Updated: 2024/06/11 12:35:17 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:24:08 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
