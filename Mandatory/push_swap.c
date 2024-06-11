@@ -83,6 +83,16 @@ void free_matrice(char **mat)
 	free(mat);
 }
 
+t_stack *get_tail(t_stack *s)
+{
+	t_stack *tmp;
+
+	tmp = s;
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	return (tmp);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	s;
@@ -100,8 +110,10 @@ int	main(int argc, char **argv)
 		s.a = parse_args(split, &s.size_a, 2);
 		if (s.size_a <= 5)
 		{
-			s.a->size = s.size_a + 1;
+			free_matrice(split);
+			process_args(&s, &argv, &argc);
 			sort_and_free(&s);
+			return (0);
 		}
 		else
 		{
