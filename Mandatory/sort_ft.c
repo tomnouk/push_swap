@@ -43,7 +43,7 @@ void	sort_3(t_stack *a, t_stack *b)
 
 void	sort_5(t_stack *a)
 {
-	t_stack	b;
+	t_stack		b;
 	int			d_tail;
 	int			i;
 
@@ -71,7 +71,7 @@ void	sort_5(t_stack *a)
 void	sort_n_bis(t_data *s)
 {
 	t_way					way;
-	unsigned int	i;
+	unsigned int			i;
 
 	while (s->size_b)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tri_grp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:25:29 by anomourn          #+#    #+#             */
-/*   Updated: 2024/06/07 16:01:17 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/06/11 10:02:17 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	*pre_tri(t_stack *s, int nb_arg)
 	int			*tri;
 	int			i;
 	int			index;
-	t_stack	*tmp;
+	t_stack		*tmp;
 
 	tri = ft_calloc(nb_arg, sizeof(int));
 	tmp = s;
@@ -39,7 +39,7 @@ int	*pre_tri(t_stack *s, int nb_arg)
 
 void	set_place(t_stack *s, int nb_arg)
 {
-	t_stack	*tmp;
+	t_stack		*tmp;
 	int			*tri;
 	int			place;
 	int			i;

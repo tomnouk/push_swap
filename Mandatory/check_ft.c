@@ -12,13 +12,6 @@
 
 #include "push_swap.h"
 
-int	is_int(long int n)
-{
-	if (n > 2147483647 || n < -2147483648)
-		return (0);
-	return (1);
-}
-
 int	is_sorted_spec(t_stack *s, int ord)
 {
 	int	i;
@@ -53,11 +46,13 @@ int	is_sorted(t_stack *s)
 void	exit_error(t_stack *s1, t_stack *s2)
 {
 	write(2, "Error\n", 6);
-	if (s1) {
+	if (s1)
+	{
 		free(s1->buffer);
 		free(s1);
 	}
-	if (s2) {
+	if (s2)
+	{
 		free(s2->buffer);
 		free(s2);
 	}
@@ -77,5 +72,17 @@ void	free_if(char ***argv, t_stack *a)
 			i++;
 		}
 		free(*argv);
+	}
+}
+
+void	free_stack(t_stack *s)
+{
+	t_stack	*tmp;
+
+	while (s)
+	{
+		tmp = s;
+		s = s->next;
+		free(tmp);
 	}
 }

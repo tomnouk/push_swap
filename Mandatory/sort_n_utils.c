@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_n_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 21:42:11 by anomourn          #+#    #+#             */
-/*   Updated: 2024/06/08 19:04:42 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/06/11 12:35:17 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ int	index_n(t_stack *s, int value)
 int	is_digit(char *str)
 {
 	int	i;
-	int sing;
+	int	sing;
 
 	i = 0;
 	sing = 0;
-	while(str[i] == ' ' || str[i] == '\t')
+	while (str[i] == ' ' || str[i] == '\t')
 		i++;
-	if (str[i] == '+' || str[i] == '-') {
+	if (str[i] == '+' || str[i] == '-')
+	{
 		i++;
 		sing = 1;
 	}
@@ -84,4 +85,24 @@ t_way	find_way(t_data *s)
 		return (down);
 	else
 		return (up);
+}
+
+long int	ft_atoi2(const char *str)
+{
+	int			i;
+	int			n;
+	long int	res;
+
+	n = 0;
+	i = 1;
+	res = 0;
+	if (str[n] == '-' || str[n] == '+')
+	{
+		if (str[n] == '-')
+			i *= -1;
+		n += 1;
+	}
+	while (str[n] >= '0' && str[n] <= '9')
+		res = res * 10 + (str[n++] - '0');
+	return (res * i);
 }

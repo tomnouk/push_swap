@@ -1,5 +1,5 @@
 /* ************************************************************************** */
-/*                                                                            */
+/*	                                              		                      */
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -12,26 +12,6 @@
 
 #include "push_swap.h"
 
-static long int	ft_atoi2(const char *str)
-{
-	int			i;
-	int			n;
-	long int	res;
-
-	n = 0;
-	i = 1;
-	res = 0;
-	if (str[n] == '-' || str[n] == '+')
-	{
-		if (str[n] == '-')
-			i *= -1;
-		n += 1;
-	}
-	while (str[n] >= '0' && str[n] <= '9')
-		res = res * 10 + (str[n++] - '0');
-	return (res * i);
-}
-
 void	init(t_stack *s, int size, char name, t_stack *s_tofree)
 {
 	s->buffer = malloc(size * sizeof(int));
@@ -41,17 +21,6 @@ void	init(t_stack *s, int size, char name, t_stack *s_tofree)
 	s->head = 0;
 	s->tail = 0;
 	s->name = name;
-}
-
-void free_stack(t_stack *s)
-{
-    t_stack *tmp;
-    while (s)
-    {
-        tmp = s;
-        s = s->next;
-        free(tmp);
-    }
 }
 
 t_data	push_swap(char **argv)
@@ -72,42 +41,59 @@ t_data	push_swap(char **argv)
 	return (s);
 }
 
-int main(int argc, char **argv)
+void	process_args(t_data *s, char ***argv, int *argc)
 {
-    t_data s;
+	s->a = malloc(sizeof(t_stack));
+	if (!s->a)
+		exit_error(NULL, NULL);
+	s->b = NULL;
+	expand_argv(s->a, argv, argc);
+	while (*argc > 0)
+	{
+		if (index_n(s->a, ft_atoi2((*argv)[*argc - 1]))
+			|| !is_digit((*argv)[*argc - 1])
+			|| !is_int(ft_atoi2((*argv)[*argc - 1])))
+		{
+			free_if(argv, s->a);
+			exit_error(s->a, NULL);
+		}
+		s->a->head = (s->a->head - 1 + s->a->size) % s->a->size;
+		s->a->buffer[s->a->head] = ft_atoi2((*argv)[(*argc)-- - 1]);
+	}
+	free_if(argv, s->a);
+}
 
-    if (argc <= 6)
-    {
-        s.a = malloc(sizeof(t_stack));
-        if (!s.a)
-            exit_error(NULL, NULL);
-        s.b = NULL;
-        expand_argv(s.a, &argv, &argc);
-        while (argc > 0)
-        {
-            if (index_n(s.a, ft_atoi2(argv[argc - 1]))
-                || !is_digit(argv[argc - 1]) || !is_int(ft_atoi2(argv[argc - 1])))
-            {
-				free_if(&argv, s.a);
-				exit_error(s.a, NULL);
-            }
-            s.a->head = (s.a->head - 1 + s.a->size) % s.a->size;
-            s.a->buffer[s.a->head] = ft_atoi2(argv[argc-- - 1]);
-        }
-        free_if(&argv, s.a);
-        if (s.a->size - 1 <= 3 && !is_sorted_spec(s.a, 0))
-            sort_3(s.a, NULL);
-        else if (s.a->size - 1 <= 5 && !is_sorted_spec(s.a, 0))
-            sort_5(s.a);
-        free(s.a->buffer);
-        free(s.a);
-        //free(s.b);
-    }
-    else if (argc > 6)
-    {
-        s = push_swap(argv + 1);
-        free_stack(s.a);
-        //free_stack(s.b);
-    }
-    return (0);
+static void	sort_and_free(t_data *s)
+{
+	if (s->a->size - 1 <= 3 && !is_sorted_spec(s->a, 0))
+		sort_3(s->a, NULL);
+	else if (s->a->size - 1 <= 5 && !is_sorted_spec(s->a, 0))
+		sort_5(s->a);
+	free(s->a->buffer);
+	free(s->a);
+}
+
+int	main(int argc, char **argv)
+{
+	t_data	s;
+	int		dim;
+	int		i;
+
+	dim = 1;
+	i = 0;
+	while (argv[1][i])
+	{
+		if (argv[1][i++] == ' ')
+			dim++;
+	}
+	if ((argc == 2 && dim <= 5) || (argc <= 6 && dim == 1))
+	{
+		process_args(&s, &argv, &argc);
+		sort_and_free(&s);
+		return (0);
+	}
+	//write(1, "coucou\n", 7);
+	s = push_swap(argv + 1);
+	free_stack(s.a);
+	return (0);
 }
