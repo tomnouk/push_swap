@@ -103,41 +103,81 @@ void	sort_n_bis(t_data *s)
 // 			push_b(s, 1);
 // 		else
 // 			rotate_a(s, 1);
-// 		printf("size_a = %d\n", s->size_a);
+// 		//printf("size_a = %d\n", s->size_a);
 // 	}
 // 	while (s->size_a)
 // 		push_b(s, 1);
 // 	sort_n_bis(s);
 // }
 
-void sort_moins_250(t_data *s)
+void	sort_moins_250(t_data *s)
 {
-    int i;
+	int	i;
+	int move;
 
-    i = 0;
-    while (i++ < s->size_a + s->size_b)
-    {
-        if (s->a->group == 0)
-        {
-            if (s->a->next && s->a->next->group == 2)
-            {
-                rotate_both(s, 1);
-            }
-            else
-            {
-                push_b(s, 1);
-                rotate_b(s, 1);
-            }
-        }
-        else if (s->a->group == 1)
-            push_b(s, 1);
-        else
-            rotate_a(s, 1);
-    }
-    while (s->size_a)
-        push_b(s, 1);
-    sort_n_bis(s);
+	i = 0;
+	move = 0;
+	while (i++ < s->size_a + s->size_b)
+	{
+		if (s->a->group == 0)
+		{
+			if (move == 1)
+				rotate_b(s, 1);
+			push_b(s, 1);
+			// rotate_b(s, 1);
+			move = 1;
+		}
+		else if (s->a->group == 1)
+		{
+			if (move == 1)
+				rotate_b(s, 1);
+			push_b(s, 1);
+			move = 0;
+		}
+		else
+		{
+			if (move == 1)
+				rotate_both(s, 1);
+			else
+				rotate_a(s, 1);
+			move = 0;
+		}//printf("size_a = %d\n", s->size_a);
+	}
+	if (move == 1)
+		rotate_b(s, 1);
+	while (s->size_a)
+		push_b(s, 1);
+	sort_n_bis(s);
 }
+
+// void sort_moins_250(t_data *s)
+// {
+//     int i;
+
+//     i = 0;
+//     while (i++ < s->size_a + s->size_b)
+//     {
+//         if (s->a->group == 0)
+//         {
+//             if (s->a->next && s->a->next->group == 2)
+//             {
+//                 rotate_both(s, 1);
+//             }
+//             else
+//             {
+//                 push_b(s, 1);
+//                 rotate_b(s, 1);
+//             }
+//         }
+//         else if (s->a->group == 1)
+//             push_b(s, 1);
+//         else
+//             rotate_a(s, 1);
+//     }
+//     while (s->size_a)
+//         push_b(s, 1);
+//     sort_n_bis(s);
+//}
 
 
 void	sort_plus_250(t_data *s)
