@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
+/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:28:47 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/06/11 21:38:31 by anoukmourna      ###   ########.fr       */
+/*   Updated: 2024/06/12 12:53:12 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

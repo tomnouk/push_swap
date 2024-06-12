@@ -106,20 +106,16 @@ int	main(int argc, char **argv)
 			write(1, "Error\n", 6);
 			return (0);
 		}
-		char **split = ft_split(argv[1], ' ');
-		s.a = parse_args(split, &s.size_a, 2);
 		if (s.size_a <= 5)
 		{
-			free_matrice(split);
 			process_args(&s, &argv, &argc);
 			sort_and_free(&s);
 			return (0);
 		}
-		else
-		{
-			push_swap(split, &s, 2);
-			free_stack(s.a);
-		}
+		char **split = ft_split(argv[1], ' ');
+		s.a = parse_args(split, &s.size_a, 2);
+		push_swap(split, &s, 2);
+		free_stack(s.a);
 		free_matrice(split);
 		return (0);
 	}
