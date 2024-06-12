@@ -101,19 +101,22 @@ int	main(int argc, char **argv)
 	//write(1, "coucou\n", 7);
 	if (argc == 2)
 	{
-		if (!argv[1] || argv[1][0] == ' ' || argv[1][ft_strlen(argv[1]) - 1] == ' ' || ft_strnstr(argv[1], "  ", ft_strlen(argv[1])))
+		if (!argv[1][0] || argv[1][0] == ' ' || argv[1][ft_strlen(argv[1]) - 1] == ' ' || ft_strnstr(argv[1], "  ", ft_strlen(argv[1])))
 		{
 			write(1, "Error\n", 6);
 			return (0);
 		}
+		char **split = ft_split(argv[1], ' ');
+		s.a = parse_args(split, &s.size_a, 2);
 		if (s.size_a <= 5)
 		{
+			free_matrice(split);
+			free_stack(s.a);
+			s.a = NULL;
 			process_args(&s, &argv, &argc);
 			sort_and_free(&s);
 			return (0);
 		}
-		char **split = ft_split(argv[1], ' ');
-		s.a = parse_args(split, &s.size_a, 2);
 		push_swap(split, &s, 2);
 		free_stack(s.a);
 		free_matrice(split);

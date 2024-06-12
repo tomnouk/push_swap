@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anoukmournard <anoukmournard@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 22:28:47 by anoukmourna       #+#    #+#             */
-/*   Updated: 2024/06/12 12:53:12 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:33:22 by anoukmourna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,14 +119,14 @@ t_stack	*parse_args(char **argv, int *nb, int argc)
 		exit_error(s, NULL);
 	}
 	s = parse_args3(ft_atoi(*argv));
+	*nb += 1;
+	next = lstlast(s);
+	next->next = parse_args(argv + 1, nb, argc);
 	if (check_double(s) == 0)
 	{
 		if (argc == 2)
 			free_matrice(argv);
 		exit_error(s, NULL);
 	}
-	*nb += 1;
-	next = lstlast(s);
-	next->next = parse_args(argv + 1, nb, argc);
 	return (s);
 }
