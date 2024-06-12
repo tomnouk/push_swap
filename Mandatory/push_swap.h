@@ -62,6 +62,7 @@ void		swap(t_stack *s);
 void		push(t_stack *s1, t_stack *s2);
 void		rotate(t_stack *s);
 void		reverse_rotate(t_stack *s);
+void		rotate_both(t_data *s, int must_print);
 void		free_stack(t_stack *s);
 
 int			is_digit(char *str);

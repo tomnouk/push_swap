@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:25:29 by anomourn          #+#    #+#             */
-/*   Updated: 2024/06/11 10:02:17 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:51:25 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	set_groups(t_stack *s, int nb_arg)
 	t_stack	*tmp;
 
 	set_place(s, nb_arg);
+	//printf("%d\n", nb_arg);
 	ind_piv1 = nb_arg / 3;
 	ind_piv2 = ind_piv1 * 2;
 	tmp = s;
@@ -76,7 +77,10 @@ void	set_groups(t_stack *s, int nb_arg)
 		if (s->place <= ind_piv1)
 			s->group = 0;
 		else if (s->place > ind_piv1 && s->place < ind_piv2)
+		{
 			s->group = 1;
+			//printf("%d\n", s->place);
+		}
 		else
 			s->group = 2;
 		s = s->next;
