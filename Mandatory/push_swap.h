@@ -80,6 +80,8 @@ int			dist_top(t_stack *s, int i, int *d_tail);
 int			s_len(t_stack *s);
 int			index_n(t_stack *s, int value);
 int			sorted_pos(t_stack *s, int n, t_stack *s_to_free);
+int			check_digital(char *s);
+int			check_double(t_stack *s);
 
 void		exit_error(t_stack *s1, t_stack *s2);
 void		i_at_top(t_stack *a, int i);

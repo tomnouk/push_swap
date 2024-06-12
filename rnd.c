@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define SIZE 6
+#define SIZE 200
 
 void shuffle(int *array, int n) {
     if (n > 1) {

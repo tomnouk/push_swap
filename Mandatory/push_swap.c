@@ -23,7 +23,7 @@ void	init(t_stack *s, int size, char name, t_stack *s_tofree)
 	s->name = name;
 }
 
-t_data	*push_swap(char **argv, t_data *s, int argc)
+t_data	*big_sort(char **argv, t_data *s, int argc)
 {
 	if (argc != 2)
 		s->a = parse_args(argv, &s->size_a, argc);
@@ -60,7 +60,7 @@ void	process_args(t_data *s, char ***argv, int *argc)
 	free_if(argv, s->a);
 }
 
-static void	sort_and_free(t_data *s)
+static void	little_sort(t_data *s)
 {
 	if (s->a->size - 1 <= 3 && !is_sorted_spec(s->a, 0))
 		sort_3(s->a, NULL);
@@ -70,27 +70,32 @@ static void	sort_and_free(t_data *s)
 	free(s->a);
 }
 
-void free_matrice(char **mat)
+int	handle_argc_two(t_data *s, char **argv, int argc)
 {
-	int i;
+	char	**split;
 
-	i = 0;
-	while (mat[i])
+	if (!argv[1][0] || argv[1][0] == ' '
+		|| argv[1][ft_strlen(argv[1]) - 1] == ' '
+		|| ft_strnstr(argv[1], "  ", ft_strlen(argv[1])))
 	{
-		free(mat[i]);
-		i++;
+		write(1, "Error\n", 6);
+		return (0);
 	}
-	free(mat);
-}
-
-t_stack *get_tail(t_stack *s)
-{
-	t_stack *tmp;
-
-	tmp = s;
-	while (tmp && tmp->next)
-		tmp = tmp->next;
-	return (tmp);
+	split = ft_split(argv[1], ' ');
+	s->a = parse_args(split, &s->size_a, 2);
+	if (s->size_a <= 5)
+	{
+		free_matrice(split);
+		free_stack(s->a);
+		s->a = NULL;
+		process_args(s, &argv, &argc);
+		little_sort(s);
+		return (0);
+	}
+	big_sort(split, s, 2);
+	free_matrice(split);
+	free_stack(s->a);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -98,38 +103,18 @@ int	main(int argc, char **argv)
 	t_data	s;
 
 	s = (t_data){0};
-	//write(1, "coucou\n", 7);
 	if (argc == 2)
 	{
-		if (!argv[1][0] || argv[1][0] == ' ' || argv[1][ft_strlen(argv[1]) - 1] == ' ' || ft_strnstr(argv[1], "  ", ft_strlen(argv[1])))
-		{
-			write(1, "Error\n", 6);
-			return (0);
-		}
-		char **split = ft_split(argv[1], ' ');
-		s.a = parse_args(split, &s.size_a, 2);
-		if (s.size_a <= 5)
-		{
-			free_matrice(split);
-			free_stack(s.a);
-			s.a = NULL;
-			process_args(&s, &argv, &argc);
-			sort_and_free(&s);
-			return (0);
-		}
-		push_swap(split, &s, 2);
-		free_stack(s.a);
-		free_matrice(split);
-		return (0);
+		return (handle_argc_two(&s, argv, argc));
 	}
 	else if (argc <= 6)
 	{
 		process_args(&s, &argv, &argc);
-		sort_and_free(&s);
+		little_sort(&s);
 		return (0);
 	}
 	else
-		push_swap(argv + 1, &s, argc);
+		big_sort(argv + 1, &s, argc);
 	free_stack(s.a);
 	return (0);
 }

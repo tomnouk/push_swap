@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 21:41:30 by anomourn          #+#    #+#             */
-/*   Updated: 2024/06/11 10:17:56 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:03:52 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,14 @@ t_stack	*lstlast(t_stack *lst)
 		while (lst->next)
 			lst = lst->next;
 	return (lst);
+}
+
+t_stack	*get_tail(t_stack *s)
+{
+	t_stack	*tmp;
+
+	tmp = s;
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	return (tmp);
 }
