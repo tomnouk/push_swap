@@ -141,10 +141,10 @@ void	sort_moins_250(t_data *s)
 			else
 				rotate_a(s, 1);
 			move = 0;
-		}//printf("size_a = %d\n", s->size_a);
+		}
 	}
-	if (move == 1)
-		rotate_b(s, 1);
+	// if (move == 1)
+	// 	rotate_b(s, 1);
 	while (s->size_a)
 		push_b(s, 1);
 	sort_n_bis(s);
