@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:02:08 by anomourn          #+#    #+#             */
-/*   Updated: 2024/06/12 15:09:11 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/06/12 21:38:37 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,15 @@ void	free_matrice(char **mat)
 		i++;
 	}
 	free(mat);
+}
+
+void	init(t_stack *s, int size, char name, t_stack *s_tofree)
+{
+	s->buffer = malloc(size * sizeof(int));
+	if (!s->buffer)
+		exit_error(s_tofree, NULL);
+	s->size = size;
+	s->head = 0;
+	s->tail = 0;
+	s->name = name;
 }

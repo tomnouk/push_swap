@@ -12,17 +12,6 @@
 
 #include "push_swap.h"
 
-void	init(t_stack *s, int size, char name, t_stack *s_tofree)
-{
-	s->buffer = malloc(size * sizeof(int));
-	if (!s->buffer)
-		exit_error(s_tofree, NULL);
-	s->size = size;
-	s->head = 0;
-	s->tail = 0;
-	s->name = name;
-}
-
 t_data	*big_sort(char **argv, t_data *s, int argc)
 {
 	if (argc != 2)

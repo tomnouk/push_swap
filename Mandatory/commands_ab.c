@@ -32,3 +32,11 @@ void	reverse_rotate_ab(t_stack *a, t_stack *b)
 	reverse_rotate(a);
 	write(1, "rrr\n", 4);
 }
+
+void	rotate_both(t_data *s, int must_print)
+{
+	if (must_print)
+		write(1, "rr\n", 3);
+	rotate_a(s, 0);
+	rotate_b(s, 0);
+}
